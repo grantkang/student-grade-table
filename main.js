@@ -45,3 +45,31 @@ function createNewGrade(id,name,course,grade,createdBy) {
     }
   });
 }
+
+function updateExistingGrade(id,name,course,grade) {
+  if(name || course || grade) {
+    $.ajax({
+      method: "PATCH",
+      url: "https://sgt.lfzprototypes.com/api/grades/" + id,
+      headers: {
+        "X-Access-Token": apiKey
+      },
+      data: {
+        "name": name,
+        "course": course,
+        "grade": grade
+      },
+      complete: function () {
+        console.log("updateExistingGrade request completed");
+      },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+  } else {
+    console.log("updateExistingGrade(): Must send at least one field to update");
+  }
+}
