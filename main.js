@@ -73,3 +73,22 @@ function updateExistingGrade(id,name,course,grade) {
     console.log("updateExistingGrade(): Must send at least one field to update");
   }
 }
+
+function deleteExistingGrade(id) {
+  $.ajax({
+    method: "DELETE",
+    url: "https://sgt.lfzprototypes.com/api/grades/" + id,
+    headers: {
+      "X-Access-Token": apiKey
+    },
+    complete: function () {
+      console.log("deleteExistingGrade request completed");
+    },
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
