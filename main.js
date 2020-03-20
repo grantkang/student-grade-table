@@ -75,4 +75,5 @@ function deleteExistingGrade(id) {
 }
 
 var gradeTable = new GradeTable(document.getElementById('grade-table'));
-var app = new App(apiKey, gradeTable);
+var pageHeader = new PageHeader(document.getElementById('page-header'));
+var app = new App(apiKey, gradeTable, pageHeader);

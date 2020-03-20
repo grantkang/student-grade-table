@@ -9,22 +9,20 @@
   <title>Student Grade Table</title>
 </head>
 <body>
-  <div class="container">
+  <header id="page-header" class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-9">
         <h1>Student Grade Table</h1>
       </div>
       <div class="col-sm-3">
-        <h3>Average Grade</h3>
+        <h3>Average Grade <span class="badge badge-secondary">100</span></h3>
       </div>
-      <div class="col-sm-1">
-        <div id="grade-avg" class="grey-round-box">
 
-        </div>
-      </div>
     </div>
+  </header>
+  <div class="container">
     <div class="row">
-      <table id="grade-table" class="table table-striped col-sm-8">
+      <table id="grade-table" class="table table-striped col-sm-12">
         <thead>
           <tr>
             <th>Name</th>
@@ -42,6 +40,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="apikey.js"></script>
   <script src="components/grade-table.js"></script>
+  <script src="components/page-header.js"></script>
   <script src="components/app.js"></script>
   <script src="main.js"></script>
 </body>
