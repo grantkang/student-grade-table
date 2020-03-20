@@ -74,4 +74,5 @@ function deleteExistingGrade(id) {
   });
 }
 
-var app = new App(apiKey);
+var gradeTable = new GradeTable(document.getElementById('grade-table'));
+var app = new App(apiKey, gradeTable);

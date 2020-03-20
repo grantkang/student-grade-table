@@ -1,7 +1,8 @@
 
 class App {
-  constructor(apiKey) {
+  constructor(apiKey,gradeTable) {
     this.apiKey = apiKey;
+    this.gradeTable = gradeTable;
     this.handleGetGradesError = this.handleGetGradesError.bind(this);
     this.handleGetGradesSuccess = this.handleGetGradesSuccess.bind(this);
   }
@@ -9,7 +10,7 @@ class App {
     console.log(error);
   }
   handleGetGradesSuccess(grades) {
-    console.log(grades);
+    this.gradeTable.updateGrades(grades);
   }
   getGrades() {
     $.ajax({
