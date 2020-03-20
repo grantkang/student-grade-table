@@ -1,3 +1,11 @@
-.row {
+header {
+  padding: 10px 0;
+}
+
+.align-center {
   align-items: center;
+}
+
+.border-less {
+  border: none;
 }
