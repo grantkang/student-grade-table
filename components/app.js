@@ -1,9 +1,10 @@
 
 class App {
-  constructor(apiKey,gradeTable,pageHeader) {
+  constructor(apiKey,gradeTable,pageHeader,gradeForm) {
     this.apiKey = apiKey;
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
+    this.gradeForm = gradeForm;
     this.handleGetGradesError = this.handleGetGradesError.bind(this);
     this.handleGetGradesSuccess = this.handleGetGradesSuccess.bind(this);
   }
