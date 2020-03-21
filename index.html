@@ -23,41 +23,47 @@
   </header>
   <div class="container">
     <div class="row">
-      <table id="grade-table" class="table table-striped col-sm-8">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <form id="new-grade-form">
-        <h4>Add Grade</h4>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-user"></i></div>
+      <div class="col-sm-8">
+        <table id="grade-table" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Grade</th>
+              <th>Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p class="d-none">No Grades Recorded</p>
+      </div>
+      <div class="col-sm-4">
+        <form id="new-grade-form">
+          <h4>Add Grade</h4>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-user"></i></div>
+            </div>
+            <input type="text" class="form-control" name="name" id="student-name-input" placeholder="Student Name">
           </div>
-          <input type="text" class="form-control" name="name" id="student-name-input" placeholder="Student Name">
-        </div>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="far fa-list-alt"></i></div>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="far fa-list-alt"></i></div>
+            </div>
+            <input type="text" class="form-control" name="course" id="student-course-input" placeholder="Student Course">
           </div>
-          <input type="text" class="form-control" name="course" id="student-course-input" placeholder="Student Course">
-        </div>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-graduation-cap"></i></div>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-graduation-cap"></i></div>
+            </div>
+            <input type="text" class="form-control" name="grade" id="student-grade-input" placeholder="Student Grade">
           </div>
-          <input type="text" class="form-control" name="grade" id="student-grade-input" placeholder="Student Grade">
-        </div>
-        <input class="btn btn-success" type="submit" value="Add">
-        <input class="btn btn-outline-secondary" type="reset" value="Cancel">
+          <input class="btn btn-success" type="submit" value="Add">
+          <input class="btn btn-outline-secondary" type="reset" value="Cancel">
+        </form>
+      </div>
 
-      </form>
     </div>
   </div>
 
