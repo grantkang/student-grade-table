@@ -5,10 +5,12 @@ class GradeForm {
     this.formElement.addEventListener('submit', this.handleSubmit);
   }
   onSubmit(createGrade) {
-    this.createGrade = this.createGrade;
+    this.createGrade = createGrade;
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log('hi');
+    var formData = new FormData(event.target);
+    this.createGrade(formData.get('name'),formData.get('course'),formData.get('grade'));
+    event.target.reset();
   }
 }
