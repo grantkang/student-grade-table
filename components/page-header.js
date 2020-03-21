@@ -3,6 +3,6 @@ class PageHeader {
     this.headerElement = headerElement;
   }
   updateAverage(newAverage) {
-    this.headerElement.querySelector('.badge').textContent = newAverage;
+    this.headerElement.querySelector('.badge').textContent = newAverage ? newAverage : 'N/A';
   }
 }
