@@ -1,23 +1,15 @@
 
 class App {
-  constructor(apiKey,gradeTable,pageHeader) {
+  constructor(apiKey,gradeTable,pageHeader,gradeForm) {
     this.apiKey = apiKey;
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
+    this.gradeForm = gradeForm;
     this.handleGetGradesError = this.handleGetGradesError.bind(this);
     this.handleGetGradesSuccess = this.handleGetGradesSuccess.bind(this);
-  }
-  handleGetGradesError(error) {
-    console.log(error);
-  }
-  handleGetGradesSuccess(grades) {
-    this.gradeTable.updateGrades(grades);
-    var average = 0;
-    for(var grade of grades) {
-      average += grade.grade;
-    }
-    average = Math.round(average / grades.length);
-    this.pageHeader.updateAverage(average);
+    this.createGrade = this.createGrade.bind(this);
+    this.handleCreateGradeError = this.handleCreateGradeError.bind(this);
+    this.handleCreateGradeSuccess = this.handleCreateGradeSuccess.bind(this);
   }
   getGrades() {
     $.ajax({
@@ -33,7 +25,45 @@ class App {
       error: this.handleGetGradesError
     });
   }
+  handleGetGradesError(error) {
+    console.log(error);
+  }
+  handleGetGradesSuccess(grades) {
+    this.gradeTable.updateGrades(grades);
+    var average = 0;
+    for (var grade of grades) {
+      average += grade.grade;
+    }
+    average = Math.round(average / grades.length);
+    this.pageHeader.updateAverage(average);
+  }
+  createGrade(name,course,grade) {
+    $.ajax({
+      method: "POST",
+      url: "https://sgt.lfzprototypes.com/api/grades",
+      headers: {
+        "X-Access-Token": this.apiKey
+      },
+      data: {
+        "name": name,
+        "course": course,
+        "grade": grade,
+      },
+      complete: function () {
+        console.log("createNewGrade request completed");
+      },
+      success: this.handleCreateGradeSuccess,
+      error: this.handleCreateGradeError
+    });
+  }
+  handleCreateGradeError(error) {
+    console.log(error);
+  }
+  handleCreateGradeSuccess() {
+    this.getGrades();
+  }
   start() {
     this.getGrades();
+    this.gradeForm.onSubmit(this.createGrade);
   }
 }
