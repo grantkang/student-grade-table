@@ -64,7 +64,8 @@ class App {
     console.error(error);
   }
   handleCreateGradeSuccess(addedStudent) {
-    this.getGrades();
+    this.gradesCache.push(addedStudent);
+    this.updateComponents();
   }
   deleteGrade(id) {
     $.ajax({
