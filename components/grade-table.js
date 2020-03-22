@@ -8,7 +8,7 @@ class GradeTable {
     var tbodyEl = this.tableElement.querySelector('tbody');
     tbodyEl.innerHTML = '';
     for(var data of grades) {
-      tbodyEl.appendChild(this.renderGradeRow(data, this.deleteGrade));
+      tbodyEl.appendChild(this.renderGradeRow(data, this.deleteGrade, this.toggleEdit));
     }
     if(!grades.length) {
       this.noGradesElement.classList.remove('d-none');
@@ -19,7 +19,10 @@ class GradeTable {
   onDeleteClick(deleteGrade) {
     this.deleteGrade = deleteGrade;
   }
-  renderGradeRow(data,deleteGrade) {
+  onEditClick(toggleEdit) {
+    this.toggleEdit = toggleEdit;
+  }
+  renderGradeRow(data,deleteGrade,toggleEdit) {
     var tableRowElement = document.createElement('tr');
 
     var tdNameElement = document.createElement('td');
@@ -32,10 +35,18 @@ class GradeTable {
     tdGradeElement.textContent = data.grade;
 
     var tdOperationsElement = document.createElement('td');
-    var deleteButton = document.createElement('button');
-    deleteButton.classList.add('btn','btn-danger');
-    deleteButton.textContent = "Delete";
-    deleteButton.addEventListener('click', function() {
+    tdOperationsElement.classList.add('justify-space-evenly')
+
+    var editButton = document.createElement('i');
+    editButton.classList.add('fas','fa-edit', 'text-primary');
+    editButton.addEventListener('click', function() {
+      toggleEdit(data);
+    });
+    tdOperationsElement.appendChild(editButton);
+
+    var deleteButton = document.createElement('i');
+    deleteButton.classList.add('fas', 'fa-trash', 'text-danger');
+    deleteButton.addEventListener('click', function () {
       deleteGrade(data.id);
     });
     tdOperationsElement.appendChild(deleteButton);

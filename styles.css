@@ -9,3 +9,8 @@ header {
 .border-less {
   border: none;
 }
+
+.justify-space-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
