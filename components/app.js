@@ -125,7 +125,7 @@ class App {
   getAverage(grades) {
     var sum = 0;
     for (var grade of grades) {
-      sum += grade.grade;
+      sum += Number(grade.grade);
     }
     return Math.round(sum / grades.length);
   }
