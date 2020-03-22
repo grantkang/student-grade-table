@@ -2,6 +2,7 @@
 class App {
   constructor(apiKey,gradeTable,pageHeader,gradeForm) {
     this.apiKey = apiKey;
+    this.gradesCache = [];
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
     this.gradeForm = gradeForm;
@@ -36,13 +37,9 @@ class App {
     console.error(error);
   }
   handleGetGradesSuccess(grades) {
-    this.gradeTable.updateGrades(grades);
-    var average = 0;
-    for (var grade of grades) {
-      average += grade.grade;
-    }
-    average = Math.round(average / grades.length);
-    this.pageHeader.updateAverage(average);
+    this.gradesCache = grades;
+    this.updateComponents();
+
   }
   createGrade(name,course,grade) {
     $.ajax({
@@ -66,7 +63,7 @@ class App {
   handleCreateGradeError(error) {
     console.error(error);
   }
-  handleCreateGradeSuccess() {
+  handleCreateGradeSuccess(addedStudent) {
     this.getGrades();
   }
   deleteGrade(id) {
@@ -123,5 +120,16 @@ class App {
     this.gradeForm.onSubmit(this.createGrade);
     this.gradeTable.onDeleteClick(this.deleteGrade);
     this.gradeTable.onEditClick(this.toggleEdit);
+  }
+  getAverage(grades) {
+    var sum = 0;
+    for (var grade of grades) {
+      sum += grade.grade;
+    }
+    return Math.round(sum / grades.length);
+  }
+  updateComponents() {
+    this.gradeTable.updateGrades(this.gradesCache);
+    this.pageHeader.updateAverage(this.getAverage(this.gradesCache));
   }
 }
