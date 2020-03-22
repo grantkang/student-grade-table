@@ -63,8 +63,9 @@ class App {
   handleCreateGradeError(error) {
     console.error(error);
   }
-  handleCreateGradeSuccess(addedStudent) {
-    this.gradesCache.push(addedStudent);
+  handleCreateGradeSuccess(addedGrade) {
+    addedGrade.grade = Number(addedGrade.grade);
+    this.gradesCache.push(addedGrade);
     this.updateComponents();
   }
   deleteGrade(id) {
