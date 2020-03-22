@@ -35,18 +35,17 @@ class GradeTable {
     tdGradeElement.textContent = data.grade;
 
     var tdOperationsElement = document.createElement('td');
+    tdOperationsElement.classList.add('justify-space-evenly')
 
-    var editButton = document.createElement('button');
-    editButton.classList.add('btn','btn-primary');
-    editButton.textContent = "Edit";
+    var editButton = document.createElement('i');
+    editButton.classList.add('fas','fa-edit', 'text-primary');
     editButton.addEventListener('click', function() {
       toggleEdit(data);
     });
     tdOperationsElement.appendChild(editButton);
 
-    var deleteButton = document.createElement('button');
-    deleteButton.classList.add('btn', 'btn-danger');
-    deleteButton.textContent = "Delete";
+    var deleteButton = document.createElement('i');
+    deleteButton.classList.add('fas', 'fa-trash', 'text-danger');
     deleteButton.addEventListener('click', function () {
       deleteGrade(data.id);
     });
