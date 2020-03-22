@@ -4,6 +4,8 @@ class GradeForm {
     this.formElement = formElement;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.formElement.addEventListener('submit', this.handleSubmit);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.formElement.addEventListener('reset',this.handleCancel);
   }
   onSubmit(createGrade) {
     this.createGrade = createGrade;
@@ -31,7 +33,6 @@ class GradeForm {
     this.resetForm(event);
   }
   handleCancel(event) {
-    event.preventDefault();
     this.resetForm(event);
   }
   resetForm(event) {
