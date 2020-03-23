@@ -14,3 +14,12 @@ header {
   display: flex;
   justify-content: space-evenly;
 }
+
+@media only screen and (max-width: 768px) {
+  h1, h3 {
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+  }
+}
