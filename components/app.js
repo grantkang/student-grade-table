@@ -118,8 +118,14 @@ class App {
   handleEditGradeError(error) {
     console.error(error);
   }
-  handleEditGradeSuccess() {
-    this.getGrades();
+  handleEditGradeSuccess(updatedGrade) {
+    for (var i = this.gradesCache.length - 1; i >= 0; i--) {
+      if (this.gradesCache[i].id === updatedGrade.id) {
+        this.gradesCache[i] = updatedGrade;
+        this.updateComponents();
+        return;
+      }
+    }
   }
   toggleEdit(data) {
     this.gradeForm.editMode(data);
