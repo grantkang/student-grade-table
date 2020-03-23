@@ -39,7 +39,6 @@ class App {
   handleGetGradesSuccess(grades) {
     this.gradesCache = grades;
     this.updateComponents();
-
   }
   createGrade(name,course,grade) {
     $.ajax({
@@ -75,18 +74,27 @@ class App {
       headers: {
         "X-Access-Token": this.apiKey
       },
+      context: this,
       complete: function () {
         console.log("deleteExistingGrade request completed");
       },
-      success: this.handleDeleteGradeSuccess,
+      success: function() {
+        this.handleDeleteGradeSuccess(id);
+      },
       error: this.handleDeleteGradeError
     });
   }
   handleDeleteGradeError(error) {
     console.error(error);
   }
-  handleDeleteGradeSuccess() {
-    this.getGrades();
+  handleDeleteGradeSuccess(id) {
+    for(var i = this.gradesCache.length - 1; i >= 0; i--) {
+      if(this.gradesCache[i].id === id) {
+        this.gradesCache.splice(i,1);
+        this.updateComponents();
+        return;
+      }
+    }
   }
   editGrade(id, name, course, grade) {
       $.ajax({
