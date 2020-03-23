@@ -2,6 +2,7 @@
 class App {
   constructor(apiKey,gradeTable,pageHeader,gradeForm) {
     this.apiKey = apiKey;
+    this.gradesCache = [];
     this.gradeTable = gradeTable;
     this.pageHeader = pageHeader;
     this.gradeForm = gradeForm;
@@ -36,13 +37,8 @@ class App {
     console.error(error);
   }
   handleGetGradesSuccess(grades) {
-    this.gradeTable.updateGrades(grades);
-    var average = 0;
-    for (var grade of grades) {
-      average += grade.grade;
-    }
-    average = Math.round(average / grades.length);
-    this.pageHeader.updateAverage(average);
+    this.gradesCache = grades;
+    this.updateComponents();
   }
   createGrade(name,course,grade) {
     $.ajax({
@@ -66,8 +62,10 @@ class App {
   handleCreateGradeError(error) {
     console.error(error);
   }
-  handleCreateGradeSuccess() {
-    this.getGrades();
+  handleCreateGradeSuccess(addedGrade) {
+    addedGrade.grade = Number(addedGrade.grade);
+    this.gradesCache.push(addedGrade);
+    this.updateComponents();
   }
   deleteGrade(id) {
     $.ajax({
@@ -76,18 +74,27 @@ class App {
       headers: {
         "X-Access-Token": this.apiKey
       },
+      context: this,
       complete: function () {
         console.log("deleteExistingGrade request completed");
       },
-      success: this.handleDeleteGradeSuccess,
+      success: function() {
+        this.handleDeleteGradeSuccess(id);
+      },
       error: this.handleDeleteGradeError
     });
   }
   handleDeleteGradeError(error) {
     console.error(error);
   }
-  handleDeleteGradeSuccess() {
-    this.getGrades();
+  handleDeleteGradeSuccess(id) {
+    for(var i = this.gradesCache.length - 1; i >= 0; i--) {
+      if(this.gradesCache[i].id === id) {
+        this.gradesCache.splice(i,1);
+        this.updateComponents();
+        return;
+      }
+    }
   }
   editGrade(id, name, course, grade) {
       $.ajax({
@@ -111,8 +118,14 @@ class App {
   handleEditGradeError(error) {
     console.error(error);
   }
-  handleEditGradeSuccess() {
-    this.getGrades();
+  handleEditGradeSuccess(updatedGrade) {
+    for (var i = this.gradesCache.length - 1; i >= 0; i--) {
+      if (this.gradesCache[i].id === updatedGrade.id) {
+        this.gradesCache[i] = updatedGrade;
+        this.updateComponents();
+        return;
+      }
+    }
   }
   toggleEdit(data) {
     this.gradeForm.editMode(data);
@@ -123,5 +136,16 @@ class App {
     this.gradeForm.onSubmit(this.createGrade);
     this.gradeTable.onDeleteClick(this.deleteGrade);
     this.gradeTable.onEditClick(this.toggleEdit);
+  }
+  getAverage(grades) {
+    var sum = 0;
+    for (var grade of grades) {
+      sum += Number(grade.grade);
+    }
+    return Math.round(sum / grades.length);
+  }
+  updateComponents() {
+    this.gradeTable.updateGrades(this.gradesCache);
+    this.pageHeader.updateAverage(this.getAverage(this.gradesCache));
   }
 }
