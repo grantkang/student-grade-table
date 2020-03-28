@@ -2,9 +2,7 @@ class GradeForm {
   constructor(formElement) {
     this.editing = null;
     this.formElement = formElement;
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.formElement.addEventListener('submit', this.handleSubmit);
-    this.handleCancel = this.handleCancel.bind(this);
     this.formElement.addEventListener('reset',this.handleCancel);
   }
   onSubmit(createGrade) {
@@ -21,7 +19,7 @@ class GradeForm {
     this.formElement.querySelector('#student-grade-input').value = data.grade;
     this.formElement.querySelector('.btn-success').value = 'Edit';
   }
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     var formData = new FormData(event.target);
 
@@ -32,7 +30,7 @@ class GradeForm {
     }
     this.resetForm(event);
   }
-  handleCancel(event) {
+  handleCancel = (event) => {
     this.resetForm(event);
   }
   resetForm(event) {
